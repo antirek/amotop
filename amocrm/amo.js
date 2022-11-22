@@ -71,6 +71,7 @@ var AmoApiClient = /** @class */ (function () {
         });
     }
     ;
+    //webhooks
     AmoApiClient.prototype.getWebhooks = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -150,6 +151,7 @@ var AmoApiClient = /** @class */ (function () {
             });
         });
     };
+    // tasks
     AmoApiClient.prototype.getTasks = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -160,6 +162,17 @@ var AmoApiClient = /** @class */ (function () {
             });
         });
     };
+    AmoApiClient.prototype.addTask = function (task) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.axios.post("/api/v4/tasks", task)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    // contacts
     AmoApiClient.prototype.getContacts = function (params) {
         return __awaiter(this, void 0, void 0, function () {
             var page, limit, query, url;
@@ -261,16 +274,7 @@ var AmoApiClient = /** @class */ (function () {
             });
         });
     };
-    AmoApiClient.prototype.addTask = function (task) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.axios.post("/api/v4/tasks", task)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
+    // companies
     AmoApiClient.prototype.getCompanies = function (params) {
         return __awaiter(this, void 0, void 0, function () {
             var page, limit, query, url;

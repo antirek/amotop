@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import * as formurlencoded from 'form-urlencoded';
+
 import {Task, ExchangeAccessTokenOptions, MergeContactsParams} from './interfaces';
 
 export class AmoService {
@@ -24,6 +25,8 @@ export class AmoApiClient {
     });
   };
 
+  //webhooks
+
   async getWebhooks() {
     return (await this.axios.get('/api/v4/webhooks')).data;
   }
@@ -43,6 +46,7 @@ export class AmoApiClient {
     })).data;
   }
 
+
   async getUsers() {
     return (await this.axios.get('/api/v4/users')).data;
   }
@@ -59,9 +63,17 @@ export class AmoApiClient {
     return (await this.axios.get('/api/v4/leads/pipelines')).data;
   }
 
+  // tasks
+
   async getTasks () {
     return (await this.axios.get(`/api/v4/tasks`)).data;
   }
+
+  async addTask(task: Task) {
+    return await this.axios.post(`/api/v4/tasks`, task);
+  }
+
+  // contacts
 
   async getContacts (params) {
     let page = params?.page ? params?.page : 1;
@@ -129,9 +141,7 @@ export class AmoApiClient {
     return response.data;
   }
 
-  async addTask(task: Task) {
-    return await this.axios.post(`/api/v4/tasks`, task);
-  }
+  // companies
 
   async getCompanies (params: any) {
     let page = params?.page ? params?.page : 1;
