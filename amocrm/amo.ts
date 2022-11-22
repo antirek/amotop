@@ -1,43 +1,10 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import * as formurlencoded from 'form-urlencoded';
-
-interface ExchangeAccessTokenOptions {
-  client_id: string,
-  client_secret: string,
-  grant_type: string,
-  refresh_token: string,
-  redirect_uri: string
-}
-	
-interface Task {
-  text: string;
-  complete_till: number;
-  entity_id?: number;
-  entity_type?: string;
-  task_type_id?: number;
-  created_at?: number;
-  created_by?: number;
-  responsible_user_id?: number;
-  duration?: number;
-}
-
-interface MergeContactsParams {
-  companyId: number;
-  contactIds: number[];
-  baseContactId: number;
-  baseContactName: string;
-  leadIds: number[];
-  responsibleUserId: number;
-  cfv: {
-    position: {id: number, value: string},
-    phones: {id: number, values: string[]},
-    emails: {id: number, values: string[]},
-  };
-}
+import {Task, ExchangeAccessTokenOptions, MergeContactsParams} from './interfaces';
 
 export class AmoService {
   async exchangeAccessToken(domain: string, data: ExchangeAccessTokenOptions) {
-    const client = await axios.create({baseURL: `https://${domain}`});
+    const client = axios.create({baseURL: `https://${domain}`});
     const response = await client.post('/oauth2/access_token', data);
     return response.data;
   }

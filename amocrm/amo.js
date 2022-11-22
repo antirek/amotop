@@ -47,11 +47,10 @@ var AmoService = /** @class */ (function () {
             var client, response;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, axios_1["default"].create({ baseURL: "https://".concat(domain) })];
-                    case 1:
-                        client = _a.sent();
+                    case 0:
+                        client = axios_1["default"].create({ baseURL: "https://".concat(domain) });
                         return [4 /*yield*/, client.post('/oauth2/access_token', data)];
-                    case 2:
+                    case 1:
                         response = _a.sent();
                         return [2 /*return*/, response.data];
                 }
