@@ -1,6 +1,6 @@
-import { AmoApiClient, AmoService } from './amocrm/amo';
+const { AmoApiClient, AmoService } = require('./amocrm/amo');
 
-export default {
+module.exports = {
   AmoApiClient,
   AmoService,
 };

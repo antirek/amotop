@@ -51,8 +51,18 @@ export class AmoApiClient {
     return (await this.axios.get('/api/v4/users')).data;
   }
 
-  async getLeads() {
-    return (await this.axios.get('/api/v4/leads')).data;
+  async getLeads(params) {
+    let page = params?.page ? params?.page : 1;
+    let limit = params?.limit ? params?.limit : 50;
+    let query = params?.query ? params?.query : null;
+    console.log('query', query);
+    let url = `/api/v4/leads`;
+    url += `?page=${page}&limit=${limit}`;
+    if (query) {
+      url += `&query=${query}`;
+    }
+    url = encodeURI(url);
+    return (await this.axios.get(url)).data;
   }
 
   async getLeadById(leadId: number) {

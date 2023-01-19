@@ -121,11 +121,23 @@ var AmoApiClient = /** @class */ (function () {
             });
         });
     };
-    AmoApiClient.prototype.getLeads = function () {
+    AmoApiClient.prototype.getLeads = function (params) {
         return __awaiter(this, void 0, void 0, function () {
+            var page, limit, query, url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.axios.get('/api/v4/leads')];
+                    case 0:
+                        page = (params === null || params === void 0 ? void 0 : params.page) ? params === null || params === void 0 ? void 0 : params.page : 1;
+                        limit = (params === null || params === void 0 ? void 0 : params.limit) ? params === null || params === void 0 ? void 0 : params.limit : 50;
+                        query = (params === null || params === void 0 ? void 0 : params.query) ? params === null || params === void 0 ? void 0 : params.query : null;
+                        console.log('query', query);
+                        url = "/api/v4/leads";
+                        url += "?page=".concat(page, "&limit=").concat(limit);
+                        if (query) {
+                            url += "&query=".concat(query);
+                        }
+                        url = encodeURI(url);
+                        return [4 /*yield*/, this.axios.get(url)];
                     case 1: return [2 /*return*/, (_a.sent()).data];
                 }
             });
