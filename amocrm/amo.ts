@@ -55,13 +55,25 @@ export class AmoApiClient {
     let page = params?.page ? params?.page : 1;
     let limit = params?.limit ? params?.limit : 50;
     let query = params?.query ? params?.query : null;
-    console.log('query', query);
+    let filter = params?.filter ? params?.filter : null;
+    console.log('filter', filter);
     let url = `/api/v4/leads`;
     url += `?page=${page}&limit=${limit}`;
     if (query) {
       url += `&query=${query}`;
     }
+    if (filter) {
+      const filterArr = new Array();
+      if (filter.id) { filterArr.push(`filter['id']=${filter.id}`); }
+      if (filter.name) { filterArr.push(`filter['name']=${filter.name}`); }
+      if (filter.price && filter.price.from && filter.price.to) {
+        filterArr.push(`filter['price']['from']=${filter.price.from}`);
+        filterArr.push(`filter['price']['to']=${filter.price.to}`);
+      }
+      url += `&` + filterArr.join('&');
+    }
     url = encodeURI(url);
+    //console.log('url', url);
     return (await this.axios.get(url)).data;
   }
 
@@ -69,8 +81,18 @@ export class AmoApiClient {
     return (await this.axios.get(`/api/v4/leads/${leadId}`)).data;
   }
 
+  // pipelines
+
   async getPipelines() {
     return (await this.axios.get('/api/v4/leads/pipelines')).data;
+  }
+
+  async getPipelineById(pipelineId: number) {
+    return (await this.axios.get(`/api/v4/leads/pipelines/${pipelineId}`)).data;
+  }
+
+  async getPipelineStatuses(pipelineId: number) {
+    return (await this.axios.get(`/api/v4/leads/pipelines/${pipelineId}/statuses`)).data;
   }
 
   // tasks
@@ -94,6 +116,7 @@ export class AmoApiClient {
     if (query) {
       url += `&query=${query}`;
     }
+    url = encodeURI(url);
     return (await this.axios.get(url)).data;
   }
 
@@ -107,7 +130,7 @@ export class AmoApiClient {
   async updateContact(id: number, data) {
     const url = `/api/v4/contacts/${id}`;
     const response = await this.axios.patch(url, data);
-    console.log('response', response);
+    // console.log('response', response);
     return response.data;
   }
 
@@ -162,6 +185,7 @@ export class AmoApiClient {
     if (query) {
       url += `&query=${query}`;
     }
+    url = encodeURI(url);
     return (await this.axios.get(url)).data;
   }
 

@@ -123,22 +123,39 @@ var AmoApiClient = /** @class */ (function () {
     };
     AmoApiClient.prototype.getLeads = function (params) {
         return __awaiter(this, void 0, void 0, function () {
-            var page, limit, query, url;
+            var page, limit, query, filter, url, filterArr;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         page = (params === null || params === void 0 ? void 0 : params.page) ? params === null || params === void 0 ? void 0 : params.page : 1;
                         limit = (params === null || params === void 0 ? void 0 : params.limit) ? params === null || params === void 0 ? void 0 : params.limit : 50;
                         query = (params === null || params === void 0 ? void 0 : params.query) ? params === null || params === void 0 ? void 0 : params.query : null;
-                        console.log('query', query);
+                        filter = (params === null || params === void 0 ? void 0 : params.filter) ? params === null || params === void 0 ? void 0 : params.filter : null;
+                        console.log('filter', filter);
                         url = "/api/v4/leads";
                         url += "?page=".concat(page, "&limit=").concat(limit);
                         if (query) {
                             url += "&query=".concat(query);
                         }
+                        if (filter) {
+                            filterArr = new Array();
+                            if (filter.id) {
+                                filterArr.push("filter['id']=".concat(filter.id));
+                            }
+                            if (filter.name) {
+                                filterArr.push("filter['name']=".concat(filter.name));
+                            }
+                            if (filter.price && filter.price.from && filter.price.to) {
+                                filterArr.push("filter['price']['from']=".concat(filter.price.from));
+                                filterArr.push("filter['price']['to']=".concat(filter.price.to));
+                            }
+                            url += "&" + filterArr.join('&');
+                        }
                         url = encodeURI(url);
                         return [4 /*yield*/, this.axios.get(url)];
-                    case 1: return [2 /*return*/, (_a.sent()).data];
+                    case 1: 
+                    //console.log('url', url);
+                    return [2 /*return*/, (_a.sent()).data];
                 }
             });
         });
@@ -153,11 +170,32 @@ var AmoApiClient = /** @class */ (function () {
             });
         });
     };
+    // pipelines
     AmoApiClient.prototype.getPipelines = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.axios.get('/api/v4/leads/pipelines')];
+                    case 1: return [2 /*return*/, (_a.sent()).data];
+                }
+            });
+        });
+    };
+    AmoApiClient.prototype.getPipelineById = function (pipelineId) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.axios.get("/api/v4/leads/pipelines/".concat(pipelineId))];
+                    case 1: return [2 /*return*/, (_a.sent()).data];
+                }
+            });
+        });
+    };
+    AmoApiClient.prototype.getPipelineStatuses = function (pipelineId) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.axios.get("/api/v4/leads/pipelines/".concat(pipelineId, "/statuses"))];
                     case 1: return [2 /*return*/, (_a.sent()).data];
                 }
             });
@@ -199,6 +237,7 @@ var AmoApiClient = /** @class */ (function () {
                         if (query) {
                             url += "&query=".concat(query);
                         }
+                        url = encodeURI(url);
                         return [4 /*yield*/, this.axios.get(url)];
                     case 1: return [2 /*return*/, (_a.sent()).data];
                 }
@@ -232,7 +271,7 @@ var AmoApiClient = /** @class */ (function () {
                         return [4 /*yield*/, this.axios.patch(url, data)];
                     case 1:
                         response = _a.sent();
-                        console.log('response', response);
+                        // console.log('response', response);
                         return [2 /*return*/, response.data];
                 }
             });
@@ -301,6 +340,7 @@ var AmoApiClient = /** @class */ (function () {
                         if (query) {
                             url += "&query=".concat(query);
                         }
+                        url = encodeURI(url);
                         return [4 /*yield*/, this.axios.get(url)];
                     case 1: return [2 /*return*/, (_a.sent()).data];
                 }
