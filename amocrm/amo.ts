@@ -46,10 +46,27 @@ export class AmoApiClient {
     })).data;
   }
 
+  // account
+
+  async getAccount(paramWith) {
+    const params = new Array();
+    if (paramWith?.amojo_id) { params.push('amojo_id') };
+    if (paramWith?.version) { params.push('version') };
+    let url = '/api/v4/account';
+    if (params.length > 0) {
+      url += '?with='+params.join(',');
+    }
+    url = encodeURI(url);
+    return (await this.axios.get(url)).data;
+  }
+
+  // users
 
   async getUsers() {
     return (await this.axios.get('/api/v4/users')).data;
   }
+
+  // leads
 
   async getLeads(params) {
     let page = params?.page ? params?.page : 1;

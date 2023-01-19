@@ -111,6 +111,34 @@ var AmoApiClient = /** @class */ (function () {
             });
         });
     };
+    // account
+    AmoApiClient.prototype.getAccount = function (paramWith) {
+        return __awaiter(this, void 0, void 0, function () {
+            var params, url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        params = new Array();
+                        if (paramWith === null || paramWith === void 0 ? void 0 : paramWith.amojo_id) {
+                            params.push('amojo_id');
+                        }
+                        ;
+                        if (paramWith === null || paramWith === void 0 ? void 0 : paramWith.version) {
+                            params.push('version');
+                        }
+                        ;
+                        url = '/api/v4/account';
+                        if (params.length > 0) {
+                            url += '?with=' + params.join(',');
+                        }
+                        url = encodeURI(url);
+                        return [4 /*yield*/, this.axios.get(url)];
+                    case 1: return [2 /*return*/, (_a.sent()).data];
+                }
+            });
+        });
+    };
+    // users
     AmoApiClient.prototype.getUsers = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -121,6 +149,7 @@ var AmoApiClient = /** @class */ (function () {
             });
         });
     };
+    // leads
     AmoApiClient.prototype.getLeads = function (params) {
         return __awaiter(this, void 0, void 0, function () {
             var page, limit, query, filter, url, filterArr;
