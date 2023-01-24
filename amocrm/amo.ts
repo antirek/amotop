@@ -94,8 +94,11 @@ export class AmoApiClient {
     return (await this.axios.get(url)).data;
   }
 
-  async getLeadById(leadId: number) {
-    return (await this.axios.get(`/api/v4/leads/${leadId}`)).data;
+  async getLeadById(leadId: number, params: any) {
+    if (!leadId) { throw new Error('no lead id'); }
+    const paramWith = params?.contacts ? 'contacts' : null;
+    const url = `/api/v4/leads/${leadId}?with=${paramWith}`;
+    return (await this.axios.get(url)).data;
   }
 
   // pipelines

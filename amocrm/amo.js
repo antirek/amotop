@@ -189,11 +189,18 @@ var AmoApiClient = /** @class */ (function () {
             });
         });
     };
-    AmoApiClient.prototype.getLeadById = function (leadId) {
+    AmoApiClient.prototype.getLeadById = function (leadId, params) {
         return __awaiter(this, void 0, void 0, function () {
+            var paramWith, url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.axios.get("/api/v4/leads/".concat(leadId))];
+                    case 0:
+                        if (!leadId) {
+                            throw new Error('no lead id');
+                        }
+                        paramWith = (params === null || params === void 0 ? void 0 : params.contacts) ? 'contacts' : null;
+                        url = "/api/v4/leads/".concat(leadId, "?with=").concat(paramWith);
+                        return [4 /*yield*/, this.axios.get(url)];
                     case 1: return [2 /*return*/, (_a.sent()).data];
                 }
             });
