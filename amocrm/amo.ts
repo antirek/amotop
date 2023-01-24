@@ -126,7 +126,7 @@ export class AmoApiClient {
   }
 
   async addTask(task: Task) {
-    return await this.axios.post(`/api/v4/tasks`, task);
+    return (await this.axios.post(`/api/v4/tasks`, task)).data;
   }
 
   // contacts

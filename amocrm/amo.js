@@ -263,7 +263,7 @@ var AmoApiClient = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.axios.post("/api/v4/tasks", task)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1: return [2 /*return*/, (_a.sent()).data];
                 }
             });
         });
