@@ -66,6 +66,10 @@ export class AmoApiClient {
     return (await this.axios.get('/api/v4/users')).data;
   }
 
+  async getUserById(userId: number) {
+    return (await this.axios.get(`/api/v4/users/${userId}`)).data;
+  }
+
   // leads
 
   async getLeads(params) {

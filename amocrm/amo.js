@@ -149,6 +149,16 @@ var AmoApiClient = /** @class */ (function () {
             });
         });
     };
+    AmoApiClient.prototype.getUserById = function (userId) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.axios.get("/api/v4/users/".concat(userId))];
+                    case 1: return [2 /*return*/, (_a.sent()).data];
+                }
+            });
+        });
+    };
     // leads
     AmoApiClient.prototype.getLeads = function (params) {
         return __awaiter(this, void 0, void 0, function () {
