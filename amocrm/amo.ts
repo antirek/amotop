@@ -125,9 +125,33 @@ export class AmoApiClient {
     return (await this.axios.get(`/api/v4/tasks`)).data;
   }
 
+  async getTaskById (taskId: number) {
+    return (await this.axios.get(`/api/v4/tasks/${taskId}`)).data;
+  }
+
+  async editTask(taskId: number, data: any) {
+    return (await this.axios.patch(`/api/v4/tasks/${taskId}`, {data})).data;
+  }
+
   async addTask(task: Task) {
     return (await this.axios.post(`/api/v4/tasks`, task)).data;
   }
+
+  async getAdditionalTaskTypes() {
+    const url = 'https://mobilonvideomeet.amocrm.ru/ajax/tasks/types';
+    const options = {
+      headers: {
+        // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    };
+    return (await this.axios.get(url, options)).data;
+  }
+
+  // нет такого метода 
+  // async deleteTask(taskId: Number) {
+  //   return (await this.axios.delete(`/api/v4/tasks/${taskId}`)).data;
+  // }
 
   // contacts
 

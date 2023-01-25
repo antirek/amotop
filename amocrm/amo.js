@@ -258,6 +258,26 @@ var AmoApiClient = /** @class */ (function () {
             });
         });
     };
+    AmoApiClient.prototype.getTaskById = function (taskId) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.axios.get("/api/v4/tasks/".concat(taskId))];
+                    case 1: return [2 /*return*/, (_a.sent()).data];
+                }
+            });
+        });
+    };
+    AmoApiClient.prototype.editTask = function (taskId, data) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.axios.patch("/api/v4/tasks/".concat(taskId), { data: data })];
+                    case 1: return [2 /*return*/, (_a.sent()).data];
+                }
+            });
+        });
+    };
     AmoApiClient.prototype.addTask = function (task) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -268,6 +288,29 @@ var AmoApiClient = /** @class */ (function () {
             });
         });
     };
+    AmoApiClient.prototype.getAdditionalTaskTypes = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var url, options;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = 'https://mobilonvideomeet.amocrm.ru/ajax/tasks/types';
+                        options = {
+                            headers: {
+                                // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            }
+                        };
+                        return [4 /*yield*/, this.axios.get(url, options)];
+                    case 1: return [2 /*return*/, (_a.sent()).data];
+                }
+            });
+        });
+    };
+    // нет такого метода 
+    // async deleteTask(taskId: Number) {
+    //   return (await this.axios.delete(`/api/v4/tasks/${taskId}`)).data;
+    // }
     // contacts
     AmoApiClient.prototype.getContacts = function (params) {
         return __awaiter(this, void 0, void 0, function () {
