@@ -294,7 +294,7 @@ var AmoApiClient = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        url = 'https://mobilonvideomeet.amocrm.ru/ajax/tasks/types';
+                        url = '/ajax/tasks/types';
                         options = {
                             headers: {
                                 // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -307,10 +307,32 @@ var AmoApiClient = /** @class */ (function () {
             });
         });
     };
-    // нет такого метода 
-    // async deleteTask(taskId: Number) {
-    //   return (await this.axios.delete(`/api/v4/tasks/${taskId}`)).data;
-    // }
+    AmoApiClient.prototype.deleteTask = function (taskId, leadId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url, options, obj, form;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = "/private/notes/edit2.php?parent_element_id=".concat(leadId, "&parent_element_type=2");
+                        options = {
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            }
+                        };
+                        obj = {
+                            ID: taskId,
+                            ACTION: 'TASK_DELETE',
+                            ELEMENT_ID: leadId,
+                            ELEMENT_TYPE: 2
+                        };
+                        form = formurlencoded(obj);
+                        return [4 /*yield*/, this.axios.post(url, form, options)];
+                    case 1: return [2 /*return*/, (_a.sent()).data];
+                }
+            });
+        });
+    };
     // contacts
     AmoApiClient.prototype.getContacts = function (params) {
         return __awaiter(this, void 0, void 0, function () {

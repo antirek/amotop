@@ -138,7 +138,7 @@ export class AmoApiClient {
   }
 
   async getAdditionalTaskTypes() {
-    const url = 'https://mobilonvideomeet.amocrm.ru/ajax/tasks/types';
+    const url = '/ajax/tasks/types';
     const options = {
       headers: {
         // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -148,10 +148,24 @@ export class AmoApiClient {
     return (await this.axios.get(url, options)).data;
   }
 
-  // нет такого метода 
-  // async deleteTask(taskId: Number) {
-  //   return (await this.axios.delete(`/api/v4/tasks/${taskId}`)).data;
-  // }
+  async deleteTask(taskId: number, leadId: number) {
+    const url = `/private/notes/edit2.php?parent_element_id=${leadId}&parent_element_type=2`;
+    const options = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    };
+    const obj = {
+      ID: taskId,
+      ACTION: 'TASK_DELETE',
+      ELEMENT_ID: leadId,
+      ELEMENT_TYPE: 2
+    };
+
+    const form = formurlencoded(obj);
+    return (await this.axios.post(url, form, options)).data;
+  }
 
   // contacts
 
